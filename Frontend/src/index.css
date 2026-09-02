@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+.dark body {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+/* ---------- Reading word reveal ---------- */
+
+.rw-word {
+  position: relative;
+  border-radius: 3px;
+}
+
+.rw-hidden {
+  visibility: hidden;
+}
+
+.rw-current {
+  color: #0c4a6e;
+  background-image: linear-gradient(120deg, #e0f2fe, #bae6fd);
+  border-radius: 4px;
+  animation: rw-glow 0.9s ease-in-out infinite;
+}
+
+.dark .rw-current {
+  color: #e0f2fe;
+  background-image: linear-gradient(120deg, rgba(14, 116, 144, 0.55), rgba(14, 165, 233, 0.55));
+}
+
+@keyframes rw-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45), 0 0 6px rgba(56, 189, 248, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.95), 0 0 16px rgba(56, 189, 248, 0.85);
+  }
+}
+
+/* ---------- AI Whiteboard ---------- */
+
+.edm-wb {
+  position: relative;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24'%3E%3Cpath d='M3 21l4.5-1L21 6.5 17.5 3 4 16.5z' fill='%230ea5e9' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E") 3 22, auto;
+}
+
+.edm-wb svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.edm-wb .edm-draw {
+  stroke-dasharray: var(--edm-len, 100);
+  stroke-dashoffset: var(--edm-len, 100);
+  marker-opacity: 0;
+  animation-name: edm-dash, edm-fill, edm-ink, edm-marker;
+  animation-duration: var(--edm-ms, 500ms), 350ms, var(--edm-ms, 500ms), var(--edm-ms, 500ms);
+  animation-delay: var(--edm-d1, 0ms), var(--edm-d2, 0ms), var(--edm-d1, 0ms), var(--edm-d2, 0ms);
+  animation-timing-function: ease-out, ease-in, ease-out, ease-in;
+  animation-fill-mode: both, both, backwards, backwards;
+}
+
+.edm-wb .edm-fillonly {
+  fill-opacity: 0;
+  animation: edm-fill 350ms ease-in var(--edm-d1, 0ms) both;
+}
+
+.edm-wb .edm-fade {
+  opacity: 0;
+  animation: edm-text 400ms ease-out var(--edm-d1, 0ms) both;
+}
+
+.edm-wb .edm-part-active {
+  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.95));
+}
+
+.edm-signature {
+  position: absolute;
+  right: 10px;
+  bottom: 6px;
+  font-size: 0.7rem;
+  font-style: italic;
+  color: #64748b;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+@keyframes edm-dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes edm-marker {
+  to {
+    marker-opacity: 1;
+  }
+}
+
+@keyframes edm-fill {
+  to {
+    fill-opacity: 1;
+  }
+}
+
+@keyframes edm-text {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes edm-ink {
+  0% {
+    filter: drop-shadow(0 0 3px rgba(37, 99, 235, 0.9));
+  }
+  100% {
+    filter: drop-shadow(0 0 0px rgba(37, 99, 235, 0));
+  }
+}
+
+/* ---------- Prose in dark mode ---------- */
+
+.dark .prose {
+  --tw-prose-body: #cbd5e1;
+  --tw-prose-headings: #f1f5f9;
+  --tw-prose-bold: #e2e8f0;
+  --tw-prose-links: #7dd3fc;
+  --tw-prose-code: #7dd3fc;
+  --tw-prose-quotes: #cbd5e1;
+  --tw-prose-th-borders: #334155;
+  --tw-prose-td-borders: #334155;
+}
