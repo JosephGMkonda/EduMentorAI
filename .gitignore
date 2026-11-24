@@ -1,0 +1,3 @@
+# Environment variables / secrets
+API/.env
+Frontend/.env
